@@ -1,11 +1,10 @@
-# Method of the month: The Newey-West estimator and interrupted time series
-A ten-minute rough-and-ready talk introducing the Newey-West
-heteroskedasticity- and autocorrelation-robust estimator for a non-technical
-audience and assessing how useful it is for interrupted time series
-analysis of health policy interventions.
+# Method of the month: Cure models for medicine persistence
+A ten-minute talk introducing cure survival models, inspired by
+"Applying mixture cure survival modeling to medication persistence analysis"
+by Cai, Love, Yunusa & Reeder (2022) https://doi.org/10.1002/pds.5441
 
 Delivered to the Medicines Policy Research Unit monthly Work In Progress
-meeting on 20 May 2021.
+meeting on 19 May 2022.
 
 [![CC BY-NC-SA 4.0][cc-by-nc-sa-shield]][cc-by-nc-sa]
 
