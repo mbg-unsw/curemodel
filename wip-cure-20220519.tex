@@ -16,11 +16,12 @@
 \usepackage[scale=0.9]{tgheros} % scale to match libertine
 \usepackage[varqu,varl]{inconsolata}
 \usepackage[libertine]{newtxmath}
+\usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage{tikz}
 \usetikzlibrary{shadows}
 \usepackage{tikzpagenodes}
-\usepackage{natbib}
+\usepackage[round]{natbib}
 \usepackage{gitinfo2}
 
 \renewcommand{\gitMark}{\color{gray}\texttt{\tiny\gitBranch\,@\,\gitAbbrevHash\,\gitAuthorDate}}
@@ -110,25 +111,57 @@
 
 \begin{frame}{Recap of survival analysis}
 	\begin{itemize}
-		\item XXXX
+		\item Time-to-event analysis is fundamental to cohort studies
+		\item Unbiased estimates require proper handling of censoring
+		\item Kaplan--Meier analysis estimates empirical survival curve
+		\item Cox regression allows semiparametric estimation (PH assumption)
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{Cure survival models}
-\end{frame}
-
-\begin{frame}{Mixture models 1}
 	\begin{itemize}
-		\item XXXX
-		%\citep{hudson_methodology_2019}
+		\item Simple survival models consider all cohort members as susceptible
+		\begin{itemize}
+			\item Good assumption for short follow-up
+		\end{itemize}
+	\item But if there is a long plateau at the tail of the survival curve
+		\begin{itemize}
+			\item Evidence for a ``cured'' fraction
+		\end{itemize}
+	\item \emph{By definition, 100\% of cured cohort members will be censored}
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Mixture models 2}
-	\begin{itemize}
-		\item XXXX
-		%\citep{hudson_methodology_2019}
-	\end{itemize}
+\begin{frame}{Mixture cure models 1}
+\calculatespace%
+\begin{columns}
+\begin{column}{0.5\contentwidth}
+  \centering
+  \includegraphics[height=0.7\textheight]{ref/surv1.pdf}
+
+  A bit of this...
+\end{column}
+\begin{column}{0.5\contentwidth}
+  \centering
+  \includegraphics[height=0.7\textheight]{ref/surv2.pdf}
+
+  and a little bit of that
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Mixture cure models 2}
+\calculatespace%
+\begin{columns}
+\begin{column}{0.5\contentwidth}
+  \centering
+  \includegraphics[height=0.7\textheight]{ref/surv3.pdf}
+\end{column}
+\begin{column}{0.5\contentwidth}
+	$S_{pop}(t|X,Z)=\underbrace{\pi(Z)S_u(t|X)}_\text{uncured}+
+	\underbrace{1-\pi(Z)}_\text{cured}$
+\end{column}
+\end{columns}
 \end{frame}
 
 %\usebackgroundtemplate{\includegraphics[width=\paperwidth]{ref/newey-west-cites.PNG}}
@@ -139,7 +172,10 @@
 
 \begin{frame}{What's this got to do with medicine persistence?}
 	\begin{itemize}
-		\item XXXX
+		\item Time-to-event analysis is the obvious way to measure persistence, with discontinuation as the event
+		\item Empirically, there may be distinct short- and long-term persistence patterns
+		\item In chronic disease, consider the long-term persistent as the ``cured'' fraction
+		\item If there is cured fraction, PH assumption is violated
 	\end{itemize}
 \end{frame}
 
@@ -151,17 +187,49 @@
 
 \begin{frame}{Statistical inference}
     \begin{itemize}
-        \item XXXX
+        \item Test if the cured fraction > 0
+	\item Test if the follow up is long enough
+	\item \emph{n.b. in the Cai et al (2022) paper this is done using parametric models}
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Cai et al example}
+\begin{frame}{Cai et al example 1}
+  \centering
+  \includegraphics[height=0.7\textheight]{ref/cai_fig2.pdf}
+  \flushright{\tiny{\citet{cai_applying_2022}}}
+\end{frame}
+
+\begin{frame}{Cai et al example 2}
+\calculatespace%
+\begin{columns}
+\begin{column}{0.5\contentwidth}
+  \centering
+  \includegraphics[width=0.9\textwidth]{ref/cai_tab2.pdf}
+\end{column}
+\begin{column}{0.5\contentwidth}
+  \centering
+  \includegraphics[height=0.6\textheight]{ref/cai_tab3.pdf}
+\end{column}
+\end{columns}
+\flushright{\tiny{\citet{cai_applying_2022}}}
 \end{frame}
 
 \begin{frame}{Worked example in R}
 \end{frame}
 
 \begin{frame}{The wild west of survival models...}
+	\begin{itemize}
+		\item There's more to life than just Cox models:
+			\begin{itemize}
+				\item Parametric survival
+				\item Accelerated failure time
+				\item Shared/conditional frailty
+				\item ...
+			\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Summary}
 \end{frame}
 
 \begin{frame}{Thanks}
