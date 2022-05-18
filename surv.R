@@ -3,6 +3,8 @@ library(dplyr)
 
 pdf("ref/surv1.pdf", width=3, height=3)
 
+# https://steemit.com/programming/@dkmathstats/plotting-math-functions-in-r
+
 exp_funct <- function(x){
   exp(-x)
 }

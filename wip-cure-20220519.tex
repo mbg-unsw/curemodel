@@ -23,6 +23,7 @@
 \usepackage{tikzpagenodes}
 \usepackage[round]{natbib}
 \usepackage{gitinfo2}
+\usepackage{listings}
 
 \renewcommand{\gitMark}{\color{gray}\texttt{\tiny\gitBranch\,@\,\gitAbbrevHash\,\gitAuthorDate}}
 
@@ -102,8 +103,11 @@
 \end{column}
 \begin{column}{0.70\contentwidth}
 	\begin{itemize}
-		\item C.~Cai et al. \textbf{Applying mixture cure survival modeling to medication persistence analysis} \emph{Pharmacoepidemiolol Drug Saf}, 2022;1--8. doi:10.1002/pds5441.
+		\item C.~Cai et al. \textbf{Applying mixture cure survival modeling to medication persistence analysis} \emph{Pharmacoepidemiol Drug Saf}, 2022;1--8. doi:10.1002/pds5441.
 \nocite{cai_applying_2022}
+\nocite{cai_smcure_2012}
+\nocite{othus_cure_2012}
+\nocite{flexsurvcure_2020}
 	\end{itemize}
 \end{column}
 \end{columns}
@@ -179,27 +183,24 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Applying the cure model}
+\begin{frame}{Cai et al example 1}
 	\begin{itemize}
-		\item XXXX
+		\item South Carolina health Plan and Medicaid
+		\item Prescription claims 2008 to 2019
+		\item Statin new users (12-month washout)
+		\item Participants who died excluded
+		\item Age group, gender, comorbidity and insurance covariates
+		\item Results shown for 180-day permissible gap
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Statistical inference}
-    \begin{itemize}
-        \item Test if the cured fraction > 0
-	\item Test if the follow up is long enough
-	\item \emph{n.b. in the Cai et al (2022) paper this is done using parametric models}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Cai et al example 1}
+\begin{frame}{Cai et al example 2}
   \centering
   \includegraphics[height=0.7\textheight]{ref/cai_fig2.pdf}
   \flushright{\tiny{\citet{cai_applying_2022}}}
 \end{frame}
 
-\begin{frame}{Cai et al example 2}
+\begin{frame}{Cai et al example 3}
 \calculatespace%
 \begin{columns}
 \begin{column}{0.5\contentwidth}
@@ -214,7 +215,42 @@
 \flushright{\tiny{\citet{cai_applying_2022}}}
 \end{frame}
 
-\begin{frame}{Worked example in R}
+\begin{frame}{Statistical inference}
+    \begin{itemize}
+        \item Test if the cured fraction > 0
+	\item Test if the follow up is long enough
+	\item \emph{n.b. in the Cai et al (2022) paper this is done using parametric models}
+    \end{itemize}
+\end{frame}
+
+\lstset{
+basicstyle=\tiny\ttfamily,basewidth=0.5em
+}
+\begin{frame}[fragile=singleslide]{Worked (trivial) example in R}
+	\begin{lstlisting}
+> head(disp)
+    d cens
+1 129    0
+2  28    0
+3  47    0
+4 223    0
+5 129    0
+6  21    0
+> flexsurvcure(Surv(d, 1-cens)~1, data=disp, dist="exp", mixture=T)
+Call:
+flexsurvcure(formula = Surv(d, 1 - cens) ~ 1, data = disp, dist = "exp",
+    mixture = T)
+
+Estimates:
+       est       L95%      U95%      se
+theta  0.095714  0.073067  0.124438        NA
+rate   0.010287  0.009380  0.011282  0.000484
+
+N = 1000,  Events: 863,  Censored: 137
+Total time at risk: 112600
+Log-likelihood = -5044.493, df = 2
+AIC = 10092.99
+\end{lstlisting}
 \end{frame}
 
 \begin{frame}{The wild west of survival models...}
@@ -230,6 +266,13 @@
 \end{frame}
 
 \begin{frame}{Summary}
+	\begin{itemize}
+		\item If short-term and long-term persistence are distinct, try a cure model
+		\item Estimating cure models can be tricky
+		\item Statistical tests can clarify which model to use
+		\item Still many parameters to twiddle e.g. permissable gap
+		\item Watch this space, there is plenty of room for new ideas
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Thanks}
