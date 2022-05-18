@@ -1,0 +1,12 @@
+library(survival)
+library(flexsurvcure)
+# XXXX better to redo this with random censoring
+a <- rexp(900, rate=1/100)
+disp <- data.frame(d=ifelse(a>300,300,a), cens=ifelse(a>300,1,0))
+disp <- rbind(disp, data.frame(d=rep(300,100), cens=rep(1,100)))
+disp$d<-floor(disp$d)
+disp$d<-ifelse(disp$d==0,1,disp$d)
+km_fit <- survfit(Surv(d, 1-cens) ~ 1, data=disp)
+plot(km_fit)
+head(disp)
+flexsurvcure(Surv(d, 1-cens)~1, data=disp, dist="exp", mixture=T)
